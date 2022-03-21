@@ -1,0 +1,241 @@
+
+<!-- Modal -->
+<div class="modal fade bg-light bg-gradient" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <form (ngSubmit)="guardarPago(pago.id)" #forma="ngForm">
+        <div class="modal-header">
+          <h5 class="modal-title title" id="staticBackdropLabel"><img class="imgCabecera" src="../../../assets/img/pago2.png"> Agregar o Modificar pagos</h5>
+          <button type="button" (click)="LimpiarFormulario()" class="btn btn-transparent" data-bs-dismiss="modal" aria-label="Close"><img class="imgCabecera" src="../../../assets/img/cerrar.png"></button>
+        </div>
+        <div class="modal-body ">
+                  <div class="form-search">
+                
+                            <div class="row mt-3 mb-3">
+                                <div class="col-lg-4" >
+                                    <div class="form-group">
+                                        <label for="cli"><strong>Proveedor </strong></label>
+                                        <select class="form-control" id="cli" required [(ngModel)]="pago.idproveedor" name="cli" #cli="ngModel"
+                                        [ngClass]="{'is-valid': !cli.invalid, 'is-invalid': cli.invalid}" min="1" pattern="[0-9]{1,1000}">
+                                        <option selected disabled [value]=-1> Seleccione Proveedor </option>
+                                          <option *ngFor="let c of proveedores" [value]="c.id"> {{c.nombre}} </option>
+                                        </select>
+                                        
+                                        <div *ngIf="cli.invalid" class="alert alert-danger">
+                                            * El proveedor es obligatorio
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="col-lg-4" >
+                                    <div class="form-group">
+                                        <label for="ban"><strong>Banco</strong></label>
+                                        <select class="form-control" id="ban" required [(ngModel)]="pago.idbanco" name="ban" #ban="ngModel"
+                                        [ngClass]="{'is-valid': !ban.invalid, 'is-invalid': ban.invalid}" min="1" pattern="[0-9]{1,1000}">
+                                        <option selected disabled [value]=-1> Seleccione Banco </option>
+                                          <option *ngFor="let b of bancos" [value]="b.id"> {{b.nombre}} </option>
+                                        </select>
+                                        
+                                        <div *ngIf="ban.invalid" class="alert alert-danger">
+                                            * El banco es obligatorio
+                                        </div>
+                                      </div>
+                                </div>
+                                <div class="col-lg-4" >
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <label for="formp"> <strong>Forma de Pago</strong>  </label>
+                                            <select class="form-control" id="formp" required [(ngModel)]="pago.formapago" name="formp" #formp="ngModel"
+                                            [ngClass]="{'is-valid': !formp.invalid, 'is-invalid': formp.invalid}">
+                                            <option selected disabled value=""> Seleccione Forma de Pago </option>
+                                              <option *ngFor="let fp of formapago" [value]="fp"> {{fp}} </option>
+                                            </select>
+                                            
+                                            <div *ngIf="formp.invalid" class="alert alert-danger">
+                                                * Forma de Pago es obligatorio
+                                            </div>
+                                          </div>
+                                      </div>
+                                </div>
+                            </div>
+                                <div class="row">
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="fact"> <strong>Factura</strong> </label>
+                                    <input type="number" min="1"  class="form-control" id="fac" required [(ngModel)]="pago.numfactura" name="fac" #fac="ngModel"
+                                    [ngClass]="{'is-valid': !fac.invalid, 'is-invalid': fac.invalid}" pattern="[0-9]{1,6}">
+                                    
+                                    <div *ngIf="fac.invalid" class="alert alert-danger">
+                                        * El Numero de factura es obligatorio
+                                    </div>
+                                </div>
+                                </div>
+                                <div class=" col-lg-3">
+                                    <div class="form-group">
+                                    <label for="imp"> <strong>Importe</strong> </label>
+                                    <input type="number" min="1"  class="form-control" id="imp" required [(ngModel)]="pago.importe" name="imp" #imp="ngModel"
+                                    [ngClass]="{'is-valid': !imp.invalid, 'is-invalid': imp.invalid}">
+                                    
+                                    <div *ngIf="imp.invalid" class="alert alert-danger" >
+                                        * El Importe es obligatorio
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group">
+                                        <label for="fech"> <strong>Fecha </strong> </label>
+                                        <input type="date"  class="form-control" id="fech" required [ngModel]="pago.fechavencimiento | date:'yyyy-MM-dd'" 
+                                        (ngModel)="pago.fechavencimiento" name="fech" #fech="ngModel"
+                                        [ngClass]="{'is-valid': !fech.invalid, 'is-invalid': fech.invalid}">
+                                        
+                                        <div *ngIf="fech.invalid" class="alert alert-danger" >
+                                            * La fecha es obligatoria
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-lg-2">
+                                    <div class="form-group buscartitle">
+                                        <div> <label><strong>Estado</strong></label></div>
+                                        <div class="custom-control custom-checkbox">
+                                          <input type="checkbox" [(ngModel)]="pago.estado" name="isOk" class="custom-control-input me-1 mt-2" id="customCheck1">
+                                          <label class="custom-control-label" for="customCheck1">  Pagado</label>
+                                        </div>
+                                      </div>
+                                </div>
+                            </div>
+                      
+                    </div>
+                    
+        </div>
+        <div class="modal-footer">
+            <button type="button" (click)="LimpiarFormulario()" class="btn btn-primary"> <img class="imgCabecera" src="../../../assets/img/clear.png"></button>
+            <button type="submit" [disabled]="!forma.valid" class="btn btn-primary" data-bs-dismiss="modal"> <img class="imgCabecera" src="../../../assets/img/guardar.png"></button>
+          <button type="button" (click)="LimpiarFormulario()" class="btn btn-secondary" data-bs-dismiss="modal"><img class="imgCabecera" src="../../../assets/img/salir2.png"></button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+<!--
+<app-nuevo-pago [bancos]="bancos" [clientes]="clientes" [formapago]="formapago" [pago]="pago" [(pagos)]="pagos"> </app-nuevo-pago>
+-->
+
+<div class="data-container">
+    <div class="row mb-4 title">
+        <div class="col-xl-8">
+            <h5><img class="imgCabecera" src="../../../assets/img/pago2.png">Pagos </h5></div>
+        <div class="col-xl-4 text-end">
+            <button type="button" class="btn btn-secondary btn-block" data-bs-toggle="modal" data-bs-target="#staticBackdrop">  
+                <img class="imgCabecera" src="../../../assets/img/agregarUser.png"> Nuevo pago</button>
+    </div>
+    </div>
+
+    <div class="accordion mb-4" id="accordionExample">
+        <div class="accordion-item">
+        
+            <h5 class="mb-4 col-12  accordion-header" id="headingOne">
+                <button class="accordion-button buscartitle" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    
+                    <h5 >
+                        <span class="oi oi-magnifying-glass"></span> Busqueda por Filtros:
+                    </h5>
+                  </button>
+            </h5>
+            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row "> 
+            <div class="form-group-floating col-4">
+                    <select (change)="buscar()" class="form-control" id="cliente" name="cliente"
+                    [(ngModel)]="pagoBusqueda.idproveedor" name="cliente" #cliente="ngModel" >
+                      <option selected [value]=0> Seleccione Proveedor </option>
+                      <option *ngFor="let c of proveedores" [value]="c.id"> {{c.nombre}} </option>
+                    </select>
+                <label for="cliente"><strong>Proveedor</strong></label>
+            </div>
+            <div class="form-group-floating col-4">
+                <select (change)="buscar()" class="form-control" id="banco" name="banco"
+                    [(ngModel)]="pagoBusqueda.idbanco" name="banco" #banco="ngModel" >
+                      <option selected [value]=0> Seleccione Banco </option>
+                      <option *ngFor="let b of bancos" [value]="b.id"> {{b.nombre}} </option>
+                    </select>
+                <label for="banco"><strong>Banco</strong></label>
+            </div>
+            <div class="form-group-floating col-4">
+                <select (change)="buscar()" class="form-control" id="formapag" name="formapag"
+                    [(ngModel)]="pagoBusqueda.formapago" name="formapag" #formapag="ngModel" >
+                      <option selected value="">Seleccione Forma Pago </option>
+                      <option *ngFor="let fp of formapago" [value]="fp"> {{fp}} </option>
+                    </select>
+                <label for="cliente"><strong>Forma Pago</strong></label>
+            </div>          
+            <div class="form-group-floating col-4">
+                <input (change)="buscar()" type="date"  class="form-control" id="fech1" [(ngModel)]="desde"
+                 name="fech1" #fech1="ngModel">
+                <label>Fecha Desde</label>
+            </div>
+            <div class="form-group-floating col-4">
+                <input (change)="buscar()" type="date"  class="form-control" id="fech2"  [(ngModel)]="hasta" 
+                 name="fech2" #fech2="ngModel">
+                <label>Fecha Hasta</label>
+            </div>
+            <div class="form-group-floating col-2">
+                <select (change)="buscar()" class="form-control" id="est" name="est"
+                    [(ngModel)]="estado2" name="est" #est="ngModel" >
+                      <option selected value=0>Seleccione Estado </option>
+                      <option [value]=1><img class="imgCabecera" src="../../../assets/img/checked.png"> Pagado </option>
+                      <option [value]=2><img class="imgCabecera" src="../../../assets/img/unchecked.png"> Por pagar </option>
+                    </select>
+                <label for="est"><strong>Estado</strong></label>
+            </div>
+            <div class="form-group-floating col-2">
+                <button class="btn btn-secondary btn-block" (click)="LimpiarBusqueda()">
+                    <img class="imgCabecera" src="../../../assets/img/clear.png"> Limpiar
+                </button> 
+            </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="overflow-auto">
+                <table  class="table" style="margin-top:20px;">
+                    <thead>
+                        <tr>
+                                <th>Id</th>
+                                <th>Proveedor</th>
+                                <th>Banco</th>
+                                <th>Factura</th>
+                                <th>Fecha</th>
+                                <th>Forma Pago</th>
+                                <th>Importe</th>
+                                <th>Estado</th>
+                                <th></th>
+                                <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let c of pagos" >
+                            <td>{{c.id}} </td>
+                            <td>{{c.idproveedor| proveedor:proveedores}}  </td>
+                            <td>{{c.idbanco | banco:bancos }} </td>
+                            <td>{{c.numfactura}} </td>
+                            <td>{{c.fechavencimiento| date:'dd-MM-yyyy'}} </td>
+                            <td>{{c.formapago}} </td>
+                            <td>{{c.importe | euro}} </td>
+                            <td><img src={{c.estado|estado}}></td>
+                            <td><button class="btn btn-secondary btn-block" (click)="editarPago(c.id)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> 
+                                <img class="imgCabecera" src="../../../assets/img/modificarUser.png">
+                            </button> </td>
+                            <td><button class="btn btn-secondary btn-block" (click)="eliminarPago(c.id)" >
+                                <img class="imgCabecera" src="../../../assets/img/eliminar2.png">
+                            </button> </td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,293 @@
+﻿legend{
+    font-size:16px;
+    width: inherit;
+}
+
+.form-row div {
+    margin-bottom: 1rem;
+}
+input[type=time] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: .25rem;
+    color: #353B43;
+}
+textarea {
+    width: 100%;
+    resize: vertical;
+    padding: 5px;
+    min-height: 100px;
+}
+
+#nombreJornada:before {
+    content: '\e087';
+}
+.input-group-text, .border {
+    border-color: #ccc !important;
+}
+.form-control {
+    padding: .20rem 0;
+    font-family: 'Montserrat', sans-serif;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+    border-radius: 0;
+    color: #353B43!important;
+}
+
+    .form-control:focus {
+        border-bottom: 2px solid #049cc1;
+        background-color: #fff;
+        box-shadow: none;
+    }
+    .form-control[disabled] {
+        background-color: #eee;
+        border-color: transparent;
+        cursor: not-allowed;
+    }
+
+/*=================================
+    LABEL FLOTANTE
+=================================*/
+
+.form-group-floating {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+    .form-group-floating label {
+        margin-left: 10px;
+        font-size: 14px;
+        font-weight: 500;
+        position: absolute;
+        pointer-events: none;
+        left: 5px;
+        top: 5px;
+        transition: 0.2s ease all;
+        -moz-transition: 0.2s ease all;
+        -webkit-transition: 0.2s ease all;
+        color: #666666;
+    }
+.label {
+    /*font-size: 12px;*/
+    margin-left: 14px;
+    position: absolute;
+    top: -20px;
+    left: 5px;
+}
+.form-group-floating .form-control:focus ~ label, .form-group-floating .form-control:valid ~ label, .form-group-floating textarea:focus ~ label, .form-group-floating textarea:valid ~ label {
+    top: -20px;
+    font-size: 14px;
+    font-weight: 600;
+    /*background-color: #fff !important;*/
+}
+
+.form-group-floating .form-control:valid, .form-group-floating textarea:valid, .form-control option:checked {
+    border-bottom: 2px solid #049cc1;
+}
+
+/*=================================
+    INPUT CHECKBOX
+=================================*/
+
+.custom-control-label::before, .custom-control-label::after {
+    top: .5rem;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    border-color: #049cc1;
+    background-color: #049cc1;
+}
+
+/*=================================
+    INPUT RADIO
+=================================*/
+
+.inputBox {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 1.5rem;
+}
+    .inputBox:focus {
+        border-bottom: none;
+        border: 1px solid #049cc1;
+    }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-text-fill-color: #353B43;
+}
+
+
+/*=================================
+    BOTONES ACCIONES FICHAR
+=================================*/
+
+.optionsJornada {
+    position: relative;
+}
+
+.optionsJornada label {
+    position: relative;
+    cursor: pointer;
+    padding-left: 2rem;
+    text-align: left;
+    display: block;
+}
+
+.optionsJornada input {
+    width: auto;
+    opacity: 0.00000001;
+    position: absolute;
+    left: 0;
+}
+.radio .custom-radio {
+    position: absolute;
+    top: -0.25rem;
+    left: -0.25rem;
+    cursor: pointer;
+    display: block;
+    font-size: 1rem;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    color: #ccc;
+}
+
+.radio .custom-radio::before, .radio .custom-radio::after {
+    content: '';
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    margin: 0.25rem;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    border: 0.125rem solid currentColor;
+}
+
+    .radio .custom-radio::after {
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        background-color: #049cc1;
+        border-color: #049cc1;
+    }
+
+.radio label:hover .custom-radio {
+    color: #049cc1;
+}
+
+.radio input:checked ~ .custom-radio::after {
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+}
+
+.radio input:checked ~ .custom-radio::before {
+    color: #049cc1;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 54px;
+    height: 24px;
+}
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 20px;
+        width: 20px;
+        left: 4px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #049cc1;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+ /* PESTAÑA SELECCIONADA */
+
+.pestSelec {
+    background-color: #049cc1;
+    color: white;
+    height: 40px;
+    line-height: 27px;
+    border-color: black;
+    border-bottom: 1px solid #d4d4d4;
+    border-right: 1px solid #d4d4d4;
+    height: 55px;
+}
+
+.pestNoSelec {
+    background-color: #f9f9f9;
+    color: black;
+    height: 40px;
+    line-height: 27px;
+    border-color: black;
+    border-bottom: 1px solid #d4d4d4;
+    border-right: 1px solid #d4d4d4;
+    height: 55px;
+}
+
+.PestanaMenuSelec {
+    background-color: #006D91;
+}
+
+.PestanaMenuSelecDark {
+    background-color: rgba(0, 0, 51, 0.75) !important;
+}

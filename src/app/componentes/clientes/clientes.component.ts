@@ -1,0 +1,79 @@
+import { Component, OnInit } from '@angular/core';
+import { Cliente } from 'src/app/modelo/cliente';
+import { AlertaService } from 'src/app/servicio/alerta.service';
+import { ServicioRecyclonService } from 'src/app/servicio/servicio-recyclon.service';
+
+@Component({
+  selector: 'app-clientes',
+  templateUrl: './clientes.component.html',
+  styleUrls: ['./clientes.component.css']
+})
+export class ClientesComponent implements OnInit {
+  public clientes: any;
+  public cliente: Cliente= {id: 0,nombre:"",ncuenta:"ES"};
+  
+    constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService) { }
+  
+    ngOnInit(){
+      this.obtenerClientes();
+    }
+  
+    eliminarCliente(id:number){
+        this.servicio.borrarCliente(id).subscribe(_=>this.obtenerClientes());
+    }
+  
+    editarCliente(id:number){
+      this.obtenerCliente(id);
+      if(this.cliente!=null){
+        this.servicio.modificarCliente(this.cliente,id)
+      }
+    }
+
+    guardarCliente(id:number) {
+      if(this.cliente.nombre.length>0 && this.cliente.ncuenta.length==24 && this.cliente.ncuenta.startsWith("ES")){
+      if(id!=0) {
+        this.servicio.modificarCliente(this.cliente,id).subscribe(
+          _ => {this.cliente= {id: 0,nombre:"",ncuenta:"ES"}
+        this.obtenerClientes();
+        }
+        )
+      } else {
+        this.servicio.insertarCliente(this.cliente).subscribe(
+          _ => {this.cliente= {id: 0,nombre:"",ncuenta:"ES"}
+          this.obtenerClientes();
+          }
+        )
+      }
+    }else{
+      if(this.cliente.nombre.length==0 && this.cliente.ncuenta.length==2){
+        this.alertaService.nuevaAlerta("Todos los datos deben cumplimentarse", 'warning');
+      }else if(this.cliente.nombre.length==0 && this.cliente.ncuenta.length<=24){
+        this.alertaService.nuevaAlerta("El nombre es obligatorio", 'warning');
+      }else if(this.cliente.nombre.length>0 && this.cliente.ncuenta.length!=24){
+        this.alertaService.nuevaAlerta("El numero de cuenta debe contener 24 caracteres", 'warning');
+      }else if(!this.cliente.ncuenta.startsWith("ES")){
+        this.alertaService.nuevaAlerta("El numero de cuenta debe empezar con ES", 'warning');
+      }
+      
+    }
+    }
+    LimpiarFormulario(){
+      this.cliente = {id: 0,nombre:"",ncuenta:"ES"};
+    }
+  
+    private obtenerClientes() {
+      this.servicio.getClientes().subscribe(cli =>this.clientes = cli);
+    }
+    private obtenerCliente(id:number) {
+      this.servicio.getCliente(id).subscribe(cli =>this.cliente = cli);
+    }
+  
+    buscar(controlBusqueda: HTMLInputElement){
+      if(controlBusqueda.value.length>0)
+      this.servicio.getBusquedaCliente(controlBusqueda.value).subscribe(cli=>this.clientes=cli);
+      else this.obtenerClientes();
+  
+    }
+  
+  }
+  

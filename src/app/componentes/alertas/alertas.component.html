@@ -1,0 +1,8 @@
+
+
+<app-alerta *ngFor="let alerta of alertaService.alertas" [alerta]="alerta" (cierre)="borrar(alerta)"></app-alerta>
+<div class="botonalerta">
+    <button id="botona" *ngIf="alertaService.alertas.length" class="btn btn-secondary" (click)="alertaService.limpiarAlertas()">Limpiar alertas</button>
+</div>
+
+

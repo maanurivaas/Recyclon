@@ -1,0 +1,64 @@
+
+<div class="data-container expanded">
+    <h2 class="title mb-5"><img class="imgCabecera" src="../../../assets/img/proveedor2.png"> Proveedores </h2>
+    
+
+                    <div class="form-search px-5">
+                        <div class="subtitle mx-5">
+                            <i class="oi oi-chevron-bottom" style="color: #353B43;"></i> Agregar o Modificar Proveedores
+                        </div>
+                        <form >
+                            <div class="row">
+                                <div class="form-group-floating col-lg-8" >
+                                    <app-label-input id="nombre" etiqueta="Nombre" [(campo)]="proveedor.nombre" [requerido]="true"></app-label-input>
+                                </div>
+                                <div class="col-lg-1">
+                                    <button type="button" (click)="guardarProveedor(proveedor.id)" class="btn btn-primary">  <img class="imgCabecera" src="../../../assets/img/guardar.png"></button>
+                                </div>
+                                <div class=" ms-3 col-lg-2">
+                                    <button type="button" (click)="LimpiarFormulario()" class="btn btn-primary">  <img class="imgCabecera" src="../../../assets/img/clear.png">Limpiar</button>
+                                </div>
+                            </div>
+                      </form>
+                    </div>
+                    <br/>
+                    <div class="row px-5">
+                        
+                        <div class="col-12 buscartitle">
+                            <h5 >
+                                <span class="oi oi-magnifying-glass"></span> Busqueda por nombre:
+                            </h5>
+                            <input #busqueda type="text" (keyup)="buscar(busqueda)" class="form-control">
+                        </div>
+                    </div>
+                
+                    <div class="overflow-auto">
+                <table class="table" style="margin-top:20px;">
+                    <thead>
+                        <tr>
+                            <th >Id</th>
+                                <th>Nombre</th>
+                                <th></th>
+                                <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let p of proveedores" >
+                            <td>{{p.id}} </td>
+                            <td style="width:80%;">{{p.nombre}}  </td>
+                            <td><button class="btn btn-secondary btn-block" (click)="editarProveedor(p.id)"> 
+                                <img class="imgCabecera" src="../../../assets/img/modificarUser.png"> 
+                            </button> 
+                            </td>
+                            <td>
+                                <button class="btn btn-secondary btn-block" (click)="eliminarProveedor(p.id)">
+                                    <img class="imgCabecera" src="../../../assets/img/eliminar.png">
+                            </button> 
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                    
+    </div>
+</div>
+

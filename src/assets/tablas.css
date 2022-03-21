@@ -1,0 +1,20 @@
+﻿.table{
+    color: #353b43;
+}
+.table td, .table th{
+    vertical-align: middle;
+}
+.table thead th {
+    border-top: none;
+    border-bottom-width: 2px;
+}
+.table .total {
+    color: #fff;
+    background-color: #f47a3b;
+    font-weight:500;
+    text-transform: uppercase;
+}
+
+.invisible{
+    visibility: hidden;
+}

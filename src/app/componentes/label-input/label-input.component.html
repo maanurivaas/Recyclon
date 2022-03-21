@@ -1,0 +1,8 @@
+
+    <input  #dato (input)="onChange()" (blur)="onChange(dato.value)" type="{{tipo}}"
+    [readonly]="soloLectura" class="form-control" id="{{id}}" name="{{id}}" value="{{campo}}"
+    [ngModel]="tipo === 'date' ? (campo | date:'yyyy-MM-dd') : campo"
+    (ngModelChange)="campo = $event" [required]="requerido" />
+
+  <label for="{{id}}">{{etiqueta}}</label>
+
