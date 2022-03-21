@@ -3,16 +3,16 @@ import { Injectable } from '@angular/core';
 import { catchError, lastValueFrom, Observable, of, tap } from 'rxjs';
 import { Nivel } from '../modelo/alerta';
 import { Banco } from '../modelo/banco';
-import { Bancos } from '../modelo/bancos';
 import { Cliente } from '../modelo/cliente';
-import{ Clientes } from '../modelo/clientes';
 import { Cobro } from '../modelo/cobro';
-import { Cobros } from '../modelo/cobros';
 import { Pago } from '../modelo/pago';
-import { Pagos } from '../modelo/pagos';
 import { Proveedor } from '../modelo/proveedor';
-import { Proveedores } from '../modelo/proveedores';
 import { AlertaService } from './alerta.service';
+
+interface Country {
+  name: string;
+  value: number;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -294,4 +294,50 @@ getPagosFormaPago(fp: string) {
   public alerta(mensaje: string, nivel: Nivel) {
     this.alertaService.nuevaAlerta(mensaje, nivel);
   }
+/*********************************Pruebas Garficos*******************************************/
+  private data: Country[] = [
+    {
+      "name": "Germany",
+      "value": 8940000
+    },
+    {
+      "name": "USA",
+      "value": 5000000
+    },
+    {
+      "name": "France",
+      "value": 7200000
+    },
+      {
+      "name": "UK",
+      "value": 6200000
+    }
+  ];
+
+
+  get countryData() {
+    return this.data;
+  }
+
+  randomData() {
+    this.data = [
+      {
+        "name": "Germany",
+        "value": Math.random() * 1000000
+      },
+      {
+        "name": "USA",
+        "value": Math.random() * 1000000
+      },
+      {
+        "name": "France",
+        "value": Math.random() * 1000000
+      },
+        {
+        "name": "UK",
+        "value": Math.random() * 1000000
+      }
+    ];
+  }
+
 }

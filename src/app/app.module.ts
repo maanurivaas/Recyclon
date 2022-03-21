@@ -26,6 +26,12 @@ import { ProveedorPipe } from './pipes/proveedor.pipe';
 import { NgChartsModule } from 'ng2-charts';
 import { ColorPickerModule } from 'ngx-color-picker';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { TarjetasComponent } from './componentes/tarjetas/tarjetas.component';
+import { GraficoBarraComponent } from './componentes/grafico-barra/grafico-barra.component';
+import { GraficoTartaComponent } from './componentes/grafico-tarta/grafico-tarta.component';
+
+
 
 @NgModule({
   declarations: [
@@ -47,7 +53,10 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     EstadoPipe,
     BancoPipe,
     ClientePipe,
-    ProveedorPipe
+    ProveedorPipe,
+    TarjetasComponent,
+    GraficoBarraComponent,
+    GraficoTartaComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +65,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FormsModule,
     ColorPickerModule,
     NgChartsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgxChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

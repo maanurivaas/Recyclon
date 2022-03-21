@@ -1,23 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertaService } from 'src/app/servicio/alerta.service';
 import { ServicioRecyclonService } from 'src/app/servicio/servicio-recyclon.service';
-import { ChartDataset } from 'chart.js';
-import { NgChartsModule } from 'ng2-charts';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { ChartOptions, ChartType } from 'chart.js';
-import * as pluginDataLabels from 'chartjs-plugin-annotation';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-grafico-tarta',
+  templateUrl: './grafico-tarta.component.html',
+  styleUrls: ['./grafico-tarta.component.css']
 })
-export class HomeComponent implements OnInit {
-  
-  view: [number, number] = [900, 400];
+export class GraficoTartaComponent implements OnInit {
+
+  view: [number, number] = [900,200];
 
   // options
-  gradient: boolean = false;
+  gradient: boolean = true;
   showLegend: boolean = true;
   showLabels: boolean = true;
   isDoughnut: boolean = false;
@@ -26,8 +21,10 @@ export class HomeComponent implements OnInit {
   constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService) { }
 
   ngOnInit(){
-   
   }
+  colorScheme: string | any = {
+    domain: ['#2f4858', '#007189', '#009da5', '#00caa5']
+  };
   get single() {
     return this.servicio.countryData;
   }
