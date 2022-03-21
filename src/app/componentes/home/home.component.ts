@@ -14,38 +14,9 @@ import * as pluginDataLabels from 'chartjs-plugin-annotation';
 })
 export class HomeComponent implements OnInit {
   
-  view: [number, number] = [900, 400];
-
-  // options
-  gradient: boolean = false;
-  showLegend: boolean = true;
-  showLabels: boolean = true;
-  isDoughnut: boolean = false;
- 
-
   constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService) { }
 
   ngOnInit(){
    
   }
-  get single() {
-    return this.servicio.countryData;
-  }
-
-  onRandomData() {
-    this.servicio.randomData();
-  }
-
-  onSelect(data: any): void {
-    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
-  }
-
-  onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
-  }
-
-  onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
-  }
-  
 }

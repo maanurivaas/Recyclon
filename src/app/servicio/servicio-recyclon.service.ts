@@ -5,14 +5,11 @@ import { Nivel } from '../modelo/alerta';
 import { Banco } from '../modelo/banco';
 import { Cliente } from '../modelo/cliente';
 import { Cobro } from '../modelo/cobro';
+import { DatosGraficas } from '../modelo/datos-graficas';
 import { Pago } from '../modelo/pago';
 import { Proveedor } from '../modelo/proveedor';
 import { AlertaService } from './alerta.service';
 
-interface Country {
-  name: string;
-  value: number;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +22,7 @@ export class ServicioRecyclonService {
   private URLProveedores: string = 'http://localhost:8083/proveedores/';
   private URLCobros: string = 'http://localhost:8084/cobros/';
   private URLPagos: string = 'http://localhost:8085/pagos/';
+  
 
   constructor(private http:HttpClient, private alertaService: AlertaService) { }
 /*********************************Servicio de Clientes*******************************************/
@@ -293,51 +291,6 @@ getPagosFormaPago(fp: string) {
   }
   public alerta(mensaje: string, nivel: Nivel) {
     this.alertaService.nuevaAlerta(mensaje, nivel);
-  }
-/*********************************Pruebas Garficos*******************************************/
-  private data: Country[] = [
-    {
-      "name": "Germany",
-      "value": 8940000
-    },
-    {
-      "name": "USA",
-      "value": 5000000
-    },
-    {
-      "name": "France",
-      "value": 7200000
-    },
-      {
-      "name": "UK",
-      "value": 6200000
-    }
-  ];
-
-
-  get countryData() {
-    return this.data;
-  }
-
-  randomData() {
-    this.data = [
-      {
-        "name": "Germany",
-        "value": Math.random() * 1000000
-      },
-      {
-        "name": "USA",
-        "value": Math.random() * 1000000
-      },
-      {
-        "name": "France",
-        "value": Math.random() * 1000000
-      },
-        {
-        "name": "UK",
-        "value": Math.random() * 1000000
-      }
-    ];
   }
 
 }
