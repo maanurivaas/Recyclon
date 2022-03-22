@@ -6,7 +6,8 @@
 </div>
 <div class="conte overflow-auto">
     <div>
-        <app-tarjetas></app-tarjetas>
+        <app-tarjetas [tarjetas]="tarjetas"></app-tarjetas>
+        <button (click)="seleccion()">Click</button>
     </div>
    <div>
         <app-grafico-tarta></app-grafico-tarta>

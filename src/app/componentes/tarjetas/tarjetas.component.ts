@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { single } from 'rxjs';
 import { Banco } from 'src/app/modelo/banco';
 import { Cliente } from 'src/app/modelo/cliente';
@@ -16,80 +16,24 @@ import { ServicioRecyclonService } from 'src/app/servicio/servicio-recyclon.serv
 })
 export class TarjetasComponent implements OnInit {
 
-  public single!: any[];
-  view: [number, number] = [1200, 150];
-  private bancos !:  Banco[]; 
-  private clientes !: Cliente[];
-  private proveedores !:  Proveedor[];
-  private pagos !: Pago[];
-  private cobros !:  Cobro[];
-  
-
-  async ngOnInit(){
-    this.servicio.getBancos().subscribe(cli =>this.bancos = cli);
-    this.servicio.getClientes().subscribe(cli =>this.clientes = cli);
-    this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
-    this.servicio.getCobros().subscribe(cli =>this.cobros = cli);
-    this.proveedores= await this.servicio.getProvee();
-    console.log(this.proveedores.length);
-    this.single= this.datosGraficosTarjetas();
-  }
-
+  @Input() tarjetas!: DatosGraficas[];
   colorScheme: string | any = {
     domain: ['#2f4858', '#007189', '#009da5', '#00caa5']
   };
   
   cardColor: string = '#232837';
+  view: [number, number] = [1200, 150];
   
+  ngOnInit(){
+    
+  }
+
   constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService) {
-    //this.servicio.getBancos().subscribe(cli =>this.bancos = cli);
-    //this.servicio.getClientes().subscribe(cli =>this.clientes = cli);
-    //this.servicio.getProveedores().subscribe(cli =>this.proveedores = cli);
-    //this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
-    //this.servicio.getCobros().subscribe(cli =>this.cobros = cli);
-    Object.assign(this, { single });
+  
   }
 
   onSelect(event:any) {
     console.log(event);
   }
-
-  /*********************************Pruebas Graficos*******************************************/
- 
- datosGraficosTarjetas():DatosGraficas[] {
-  
-   var data: DatosGraficas[]=[
-     {
-       "name": "Clientes",
-       "value": 23
-     },
-     {
-       "name": "Proveedores",
-       "value": this.proveedores.length
-     },
-     {
-       "name": "Bancos",
-       "value": this.bancos.length
-     },
-     {
-      "name": "Cobros realizados",
-      "value": 50
-    },
-    {
-     "name": "Cobros por efectuar",
-     "value": 60
-    },{
-      "name": "Pagos realizados",
-      "value": 10
-    },
-    {
-     "name": "Pagos por efectuar",
-     "value": 100
-    }
-   ];
-   return data;
- }
- 
-
 
 }

@@ -14,7 +14,9 @@ export class BancosComponent implements OnInit {
   public bancos!: Banco[];
   public banco: Banco= {id: 0,nombre:""};
   
-    constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService) { }
+    constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService) {
+      
+     }
   
     ngOnInit(){
       this.obtenerBancos();
