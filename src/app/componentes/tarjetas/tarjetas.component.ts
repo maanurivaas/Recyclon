@@ -36,12 +36,13 @@ export class TarjetasComponent implements OnInit {
   cardColor: string = '#232837';
   
   constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService) {
-    this.servicio.getBancos().subscribe(cli =>this.bancos = cli);
-    this.servicio.getClientes().subscribe(cli =>this.clientes = cli);
-    this.servicio.getProveedores().subscribe(cli =>this.proveedores = cli);
-    this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
-    this.servicio.getCobros().subscribe(cli =>this.cobros = cli);
-    //Object.assign(this, { single });
+    //this.servicio.getBancos().subscribe(cli =>this.bancos = cli);
+    //this.servicio.getClientes().subscribe(cli =>this.clientes = cli);
+    //this.servicio.getProveedores().subscribe(cli =>this.proveedores = cli);
+    //this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
+    //this.servicio.getCobros().subscribe(cli =>this.cobros = cli);
+    console.log("Numero de Proveedores: " + this.servicio.obtenerProveedores());
+    Object.assign(this, { single });
   }
 
   onSelect(event:any) {

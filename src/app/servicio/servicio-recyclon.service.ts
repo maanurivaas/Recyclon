@@ -279,7 +279,6 @@ getPagosFormaPago(fp: string) {
     });
   }
   private log(mensaje: string, nivel: Nivel) {
-    //this.alertaService.nuevaAlerta(mensaje, nivel);
 
     switch(nivel) {
       case 'info': console.info(mensaje); break;
@@ -293,4 +292,9 @@ getPagosFormaPago(fp: string) {
     this.alertaService.nuevaAlerta(mensaje, nivel);
   }
 
+  public obtenerProveedores():number {
+    let proveedores!:Proveedor[];
+    this.getProveedores().subscribe(cli =>proveedores = cli);
+    return proveedores.length;
+  }
 }
