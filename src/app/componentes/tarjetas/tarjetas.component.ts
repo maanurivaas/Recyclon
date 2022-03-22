@@ -41,7 +41,7 @@ export class TarjetasComponent implements OnInit {
     this.servicio.getProveedores().subscribe(cli =>this.proveedores = cli);
     this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
     this.servicio.getCobros().subscribe(cli =>this.cobros = cli);
-    Object.assign(this, { single });
+    //Object.assign(this, { single });
   }
 
   onSelect(event:any) {
