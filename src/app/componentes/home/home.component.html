@@ -7,13 +7,16 @@
 <div class="conte overflow-auto">
     <div>
         <app-tarjetas [tarjetas]="tarjetas"></app-tarjetas>
-        <button (click)="seleccion()">Click</button>
+        <!--<button (click)="seleccion()">Click</button>-->
     </div>
    <div>
-        <app-grafico-tarta></app-grafico-tarta>
+        <app-grafico-tarta [tarta]="tartap"></app-grafico-tarta>
     </div>
     <div>
-        <app-grafico-barra></app-grafico-barra>
+        <app-grafico-tarta [tarta]="tartac"></app-grafico-tarta>
+    </div>
+    <div>
+        <app-grafico-barra [barra]="barra"></app-grafico-barra>
     </div>
     
 </div>

@@ -16,54 +16,59 @@ import { Proveedor } from 'src/app/modelo/proveedor';
 export class HomeComponent implements OnInit {
   
   public tarjetas!: any[];
-  view: [number, number] = [1200, 150];
-  private bancos :  any[]=[]; 
+  public tartap!: any[];
+  public tartac!: any[];
+  public barra!: any[];
+  private bancos!:  Banco[]; 
   private clientes !: Cliente[];
   private proveedores !:  Proveedor[];
-  private nProveedores !:  number;
-  private nBancos !:  number;
   private pagos !: Pago[];
   private cobros !:  Cobro[];
 
+  private totalc1:number=0;
+  private totalc2:number=0;
+  private totalp1:number=0;
+  private totalp2:number=0;
+
+ ngOnInit(){
+    this.obtenerBancos()
+    this.obtenerProveedores()
+    this.obtenerCobros()
+    this.obtenerClientes()
+    this.obtenerPagos()
+    
+    setTimeout(() => {
+      this.tarjetas= this.datosGraficosTarjetas();
+    }, 1000);
+    setTimeout(() => {
+      this.tartap= this.datosGraficosTartap();
+      this.tartac= this.datosGraficosTartac();
+      this.barra= this.datosGraficosBarras();
+    }, 1000);
+    
+  }
+
   private obtenerBancos() {
     this.servicio.getBancos().subscribe(cli =>this.bancos = cli);
-    this.nBancos=this.bancos.length;
-    console.log(this.nBancos);
   }
 
-  async ngOnInit(){
-    //this.servicio.getBancos().subscribe(cli =>this.bancos = cli);
-    //this.servicio.getClientes().subscribe(cli =>this.clientes = cli);
-    //this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
-    //this.servicio.getCobros().subscribe(cli =>this.cobros = cli);
-
-    this.obtenerBancos()
-    
-    this.nProveedores= await this.servicio.getProvee();
-    console.log(this.nProveedores);
-    
-    this.tarjetas= this.datosGraficosTarjetas();
+  private obtenerProveedores(){
+    this.servicio.getProveedores().subscribe(p =>this.proveedores = p);
   }
 
-  colorScheme: string | any = {
-    domain: ['#2f4858', '#007189', '#009da5', '#00caa5']
-  };
-  
-  cardColor: string = '#232837';
+  private obtenerCobros() {
+    this.servicio.getCobros().subscribe(cli =>this.cobros = cli);
+  }
+
+  private obtenerClientes(){
+    this.servicio.getClientes().subscribe(cli =>this.clientes = cli);
+  }
+  private obtenerPagos() {
+    this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
+  }
   
   constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService) {
   
-  }
-
-  onSelect(event:any) {
-    console.log(event);
-    
-  }
-  seleccion(){
-    console.log(this.bancos);
-    this.nBancos=this.bancos.length;
-    console.log(this.nBancos);
-    this.tarjetas= this.datosGraficosTarjetas();
   }
 
   /*********************************Pruebas Graficos*******************************************/
@@ -73,35 +78,92 @@ export class HomeComponent implements OnInit {
    var data: DatosGraficas[]=[
      {
        "name": "Clientes",
-       "value": 23
+       "value": this.clientes.length
      },
      {
        "name": "Proveedores",
-       "value": this.nProveedores
+       "value": this.proveedores.length
      },
      {
        "name": "Bancos",
-       "value": this.nBancos
+       "value": this.bancos.length
      },
      {
       "name": "Cobros realizados",
-      "value": 50
+      "value": this.cobros.slice().filter(x=>x.estado).length
     },
     {
      "name": "Cobros por efectuar",
-     "value": 60
+     "value": this.cobros.slice().filter(x=>!x.estado).length
     },{
       "name": "Pagos realizados",
-      "value": 10
+      "value": this.pagos.slice().filter(x=>x.estado).length
     },
     {
      "name": "Pagos por efectuar",
-     "value": 100
+     "value": this.pagos.slice().filter(x=>!x.estado).length
     }
    ];
    return data;
  }
  
 
+ datosGraficosTartap():DatosGraficas[] {
+ 
+  this.pagos.slice().filter(x=>x.estado).forEach(p=>{
+    this.totalp1+=p.importe
+  });
+  this.pagos.slice().filter(x=>!x.estado).forEach(p=>{
+    this.totalp2+=p.importe
+  });
+  
+  var data: DatosGraficas[]=[{
+    "name": "Pagado",
+    "value": this.totalp1
+  },{
+    "name": "Por pagar",
+    "value": this.totalp2
+  }];
+  return data;
+}
+datosGraficosTartac():DatosGraficas[] {
+  
+  this.cobros.slice().filter(x=>x.estado).forEach(p=>{
+    this.totalc1+=p.importe
+  });
+  this.cobros.slice().filter(x=>!x.estado).forEach(p=>{
+    this.totalc2+=p.importe
+  });
+  
+  var data: DatosGraficas[]=[{
+    "name": "Cobrado",
+    "value": this.totalc1
+  },{
+    "name": "Por cobrar",
+    "value": this.totalc2
+  }];
+  return data;
+}
 
+datosGraficosBarras():DatosGraficas[] {
+  var data: DatosGraficas[]= [
+    {
+      "name": "Por Cobrar",
+      "value": this.totalc2
+    },
+    {
+      "name": "Por Pagar",
+      "value": this.totalp2
+    },
+    {
+      "name": "Cobrados",
+      "value": this.totalc1
+    },
+      {
+      "name": "Pagados",
+      "value": this.totalp1
+    }
+  ];
+  return data;
+}
 }

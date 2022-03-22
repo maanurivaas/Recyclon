@@ -32,8 +32,4 @@ export class TarjetasComponent implements OnInit {
   
   }
 
-  onSelect(event:any) {
-    console.log(event);
-  }
-
 }

@@ -74,15 +74,7 @@ getBancos(): Observable<Banco[]> {
     catchError(this.gestionarError<Banco[]>('No se han podido recibir los bancos', ))
   );
 }
- getBancos2(): Banco[]{
-  var banncos!:Banco[];
-   this.http.get<Banco[]>(this.URLBancos).pipe(
-    tap(_ => this.log('Se han recibido los bancos', 'success')),
-    catchError(this.gestionarError<Banco[]>('No se han podido recibir los bancos', ))
-  ).subscribe( x=> { banncos= x});
-  return banncos;
-}
-
+ 
 getBanco(id:number): Observable<Banco> {
   return this.http.get<Banco>(this.URLBancos + id).pipe(
     tap(_ => this.log('Se ha recibido el banco ' + id, 'success')),
