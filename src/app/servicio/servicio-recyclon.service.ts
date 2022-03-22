@@ -292,9 +292,10 @@ getPagosFormaPago(fp: string) {
     this.alertaService.nuevaAlerta(mensaje, nivel);
   }
 
-  public obtenerProveedores():number {
-    let proveedores!:Proveedor[];
-    this.getProveedores().subscribe(cli =>proveedores = cli);
-    return proveedores.length;
+  
+  async getProvee(): Promise<Proveedor[]> {
+    let promesa: Promise<Proveedor[]> = lastValueFrom<Proveedor[]>(this.http.get<Proveedor[]>(this.URLProveedores));
+    
+    return promesa;
   }
 }

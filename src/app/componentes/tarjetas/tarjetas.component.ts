@@ -25,7 +25,13 @@ export class TarjetasComponent implements OnInit {
   private cobros !:  Cobro[];
   
 
-  ngOnInit(){
+  async ngOnInit(){
+    this.servicio.getBancos().subscribe(cli =>this.bancos = cli);
+    this.servicio.getClientes().subscribe(cli =>this.clientes = cli);
+    this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
+    this.servicio.getCobros().subscribe(cli =>this.cobros = cli);
+    this.proveedores= await this.servicio.getProvee();
+    console.log(this.proveedores.length);
     this.single= this.datosGraficosTarjetas();
   }
 
@@ -41,7 +47,6 @@ export class TarjetasComponent implements OnInit {
     //this.servicio.getProveedores().subscribe(cli =>this.proveedores = cli);
     //this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
     //this.servicio.getCobros().subscribe(cli =>this.cobros = cli);
-    console.log("Numero de Proveedores: " + this.servicio.obtenerProveedores());
     Object.assign(this, { single });
   }
 
@@ -60,11 +65,11 @@ export class TarjetasComponent implements OnInit {
      },
      {
        "name": "Proveedores",
-       "value": 45
+       "value": this.proveedores.length
      },
      {
        "name": "Bancos",
-       "value": 23
+       "value": this.bancos.length
      },
      {
       "name": "Cobros realizados",
