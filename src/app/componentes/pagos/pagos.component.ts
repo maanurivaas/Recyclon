@@ -149,7 +149,7 @@ export class PagosComponent implements OnInit {
   }
 
   buscar(){
-    this.obtenerPagos();
+    
     this.servicio.getPagos().subscribe(pag =>this.pagosf = pag);
     
     if(this.pagoBusqueda.idproveedor>0){

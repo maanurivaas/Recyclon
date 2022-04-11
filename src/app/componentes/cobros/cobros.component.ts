@@ -87,6 +87,7 @@ export class CobrosComponent implements OnInit {
         this.obtenerCobros();
         }
         )
+
       } else {
         this.servicio.insertarCobro(this.cobro).subscribe(
           _ => {this.cobro;
@@ -94,6 +95,7 @@ export class CobrosComponent implements OnInit {
           }
         )
     }
+    this.servicio.getCobros().subscribe(cli =>this.cobrosf = cli);
     this.LimpiarBusqueda()
     this.LimpiarFormulario()
   }
@@ -145,7 +147,7 @@ export class CobrosComponent implements OnInit {
   
     buscar(){
       
-      
+     
       this.servicio.getCobros().subscribe(cli =>this.cobrosf = cli);
       
       if(this.cobroBusqueda.idcliente>0){
