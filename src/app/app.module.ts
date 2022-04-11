@@ -30,8 +30,12 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { TarjetasComponent } from './componentes/tarjetas/tarjetas.component';
 import { GraficoBarraComponent } from './componentes/grafico-barra/grafico-barra.component';
 import { GraficoTartaComponent } from './componentes/grafico-tarta/grafico-tarta.component';
-
-
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -66,9 +70,22 @@ import { GraficoTartaComponent } from './componentes/grafico-tarta/grafico-tarta
     ColorPickerModule,
     NgChartsModule,
     BrowserAnimationsModule,
-    NgxChartsModule
+    NgxChartsModule,
+    ReactiveFormsModule,
+    SocialLoginModule,
   ],
-  providers: [],
+  providers: [{
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider('174904416171-gcmokbsqt7kacc7g8gg816ts16ncq3nb.apps.googleusercontent.com'),
+        },
+      ],
+    } as SocialAuthServiceConfig,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,16 +6,16 @@
 </div>
 <div class="conte overflow-auto">
     
-   <div>
+   <div *ngIf="tartap!=null">
         <app-grafico-tarta [tarta]="tartap"></app-grafico-tarta>
     </div>
-    <div>
+    <div *ngIf="tartac!=null">
         <app-grafico-tarta [tarta]="tartac"></app-grafico-tarta>
     </div>
-    <div>
+    <div *ngIf="barra!=null">
         <app-grafico-barra [barra]="barra"></app-grafico-barra>
     </div>
-    <div>
+    <div *ngIf="tarjetas!=null">
         <app-tarjetas [tarjetas]="tarjetas"></app-tarjetas>
     </div>
 </div>

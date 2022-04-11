@@ -274,7 +274,7 @@ getPagosFormaPago(fp: string) {
 /*********************************Errores y Alertas*******************************************/
   private gestionarError<T>(mensaje: string, respuesta?: T) {
     return ((err: any): Observable<T> => {
-      this.alertaService.nuevaAlerta(mensaje + ": " + err.message, 'danger');
+      this.alertaService.nuevaAlerta(mensaje + " porque no puede existir cobros o pagos asociados a el.", 'danger');
       return of(respuesta as T);
     });
   }
@@ -285,7 +285,7 @@ getPagosFormaPago(fp: string) {
       case 'success': console.log(mensaje); break;
       case 'warning': console.warn(mensaje); break;
       case 'danger': console.error(mensaje); break;
-      default: throw 'No me esperaba ese tipo de mensaje';
+      default: throw 'No me esperaba ese tipo de mensaje, contactar con el servicio tecnico.';
     }
   }
   public alerta(mensaje: string, nivel: Nivel) {

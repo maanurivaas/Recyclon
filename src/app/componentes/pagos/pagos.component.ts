@@ -88,6 +88,7 @@ export class PagosComponent implements OnInit {
         _ => {this.pago;
       this.obtenerPagos();
       }
+      
       )
     } else {
       this.servicio.insertarPago(this.pago).subscribe(
@@ -95,9 +96,11 @@ export class PagosComponent implements OnInit {
         this.obtenerPagos();
         }
       )
+
   }
   this.LimpiarBusqueda()
   this.LimpiarFormulario()
+  this.servicio.getPagos().subscribe(pag =>this.pagosf = pag);
 }
   
   LimpiarFormulario(){
@@ -146,7 +149,7 @@ export class PagosComponent implements OnInit {
   }
 
   buscar(){
-   
+    this.obtenerPagos();
     this.servicio.getPagos().subscribe(pag =>this.pagosf = pag);
     
     if(this.pagoBusqueda.idproveedor>0){
