@@ -4,6 +4,7 @@ import { Banco } from 'src/app/modelo/banco';
 import { Cliente } from 'src/app/modelo/cliente';
 import { AlertaService } from 'src/app/servicio/alerta.service';
 import { ServicioRecyclonService } from 'src/app/servicio/servicio-recyclon.service';
+import Swal, { SweetAlertIcon } from 'sweetalert2';
 
 @Component({
   selector: 'app-bancos',
@@ -25,6 +26,22 @@ export class BancosComponent implements OnInit {
     eliminarBanco(id:number){
         this.servicio.borrarBanco(id).subscribe(_=>this.obtenerBancos());
     }
+    mostrarVentanaEliminar(c: Banco) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: `El cliente ${c.nombre} será eliminado `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+      }).then((result: { isConfirmed: any; }) => {
+        if(result.isConfirmed) {
+          this.eliminarBanco(c.id);
+        }
+      });
+    }
+
   
     editarBanco(id:number){
       this.obtenerBanco(id);

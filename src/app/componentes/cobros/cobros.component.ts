@@ -5,6 +5,7 @@ import { Cliente } from 'src/app/modelo/cliente';
 import { Cobro } from 'src/app/modelo/cobro';
 import { AlertaService } from 'src/app/servicio/alerta.service';
 import { ServicioRecyclonService } from 'src/app/servicio/servicio-recyclon.service';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -71,6 +72,21 @@ export class CobrosComponent implements OnInit {
   
     eliminarCobro(id:number){
         this.servicio.borrarCobro(id).subscribe(_=>this.obtenerCobros());
+    }
+    mostrarVentanaEliminar(c: Cobro) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: `El cobro será eliminado `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+      }).then((result: { isConfirmed: any; }) => {
+        if(result.isConfirmed) {
+          this.eliminarCobro(c.id);
+        }
+      });
     }
   
     editarCobro(id:number){

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, lastValueFrom, Observable, of, tap } from 'rxjs';
 import { Nivel } from '../modelo/alerta';
@@ -17,12 +17,12 @@ import { AlertaService } from './alerta.service';
 
 export class ServicioRecyclonService {
  
-  private   URLClientes: string = 'http://localhost:8081/clientes/';
-  private URLBancos: string = 'http://localhost:8082/bancos/';
-  private URLProveedores: string = 'http://localhost:8083/proveedores/';
-  private URLCobros: string = 'http://localhost:8084/cobros/';
-  private URLPagos: string = 'http://localhost:8085/pagos/';
-  
+  private   URLClientes: string = 'http://localhost:9000/clientes/';
+  private URLBancos: string = 'http://localhost:9000/bancos/';
+  private URLProveedores: string = 'http://localhost:9000/proveedores/';
+  private URLCobros: string = 'http://localhost:9000/cobros/';
+  private URLPagos: string = 'http://localhost:9000/pagos/';
+  private headers: HttpHeaders= new HttpHeaders({'Content-type':'application/json'});
 
   constructor(private http:HttpClient, private alertaService: AlertaService) { }
 /*********************************Servicio de Clientes*******************************************/
@@ -82,7 +82,7 @@ getBanco(id:number): Observable<Banco> {
   );
 }
 insertarBanco(banco: Banco): Observable<Banco> {
-  return this.http.post<Banco>(this.URLBancos, banco).pipe(
+  return this.http.post<Banco>(this.URLBancos, banco, {headers:this.headers}).pipe(
     tap(_ => {this.log('Se ha insertado el banco ' + JSON.stringify(banco), 'success'), this.alerta('Se ha insertado el banco ', 'success')}),
     catchError(this.gestionarError<Banco>('No se ha podido insertar el banco'))
   );
@@ -273,8 +273,9 @@ getPagosFormaPago(fp: string) {
 }
 /*********************************Errores y Alertas*******************************************/
   private gestionarError<T>(mensaje: string, respuesta?: T) {
-    return ((err: any): Observable<T> => {
-      this.alertaService.nuevaAlerta(mensaje + " porque no puede existir cobros o pagos asociados a el.", 'danger');
+    return ((error: any): Observable<T> => {
+      this.alertaService.nuevaAlerta(mensaje +" " + error.message, 'danger');
+      this.log(error.message,'danger');
       return of(respuesta as T);
     });
   }

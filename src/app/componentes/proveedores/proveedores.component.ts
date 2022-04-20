@@ -3,6 +3,7 @@ import { Cliente } from 'src/app/modelo/cliente';
 import { Proveedor } from 'src/app/modelo/proveedor';
 import { AlertaService } from 'src/app/servicio/alerta.service';
 import { ServicioRecyclonService } from 'src/app/servicio/servicio-recyclon.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-proveedores',
@@ -21,6 +22,21 @@ export class ProveedoresComponent implements OnInit {
   
     eliminarProveedor(id:number){
         this.servicio.borrarProveedor(id).subscribe(_=>this.obtenerProveedores());
+    }
+    mostrarVentanaEliminar(c: Proveedor) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: `El cobro será eliminado `,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Eliminar',
+      }).then((result: { isConfirmed: any; }) => {
+        if(result.isConfirmed) {
+          this.eliminarProveedor(c.id);
+        }
+      });
     }
   
     editarProveedor(id:number){

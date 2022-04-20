@@ -31,6 +31,7 @@ import { TarjetasComponent } from './componentes/tarjetas/tarjetas.component';
 import { GraficoBarraComponent } from './componentes/grafico-barra/grafico-barra.component';
 import { GraficoTartaComponent } from './componentes/grafico-tarta/grafico-tarta.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgxSpinnerModule } from "ngx-spinner";
 import {
   SocialLoginModule,
   SocialAuthServiceConfig,
@@ -73,6 +74,7 @@ import { GoogleLoginProvider } from 'angularx-social-login';
     NgxChartsModule,
     ReactiveFormsModule,
     SocialLoginModule,
+    NgxSpinnerModule,
   ],
   providers: [{
     provide: 'SocialAuthServiceConfig',

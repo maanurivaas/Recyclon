@@ -7,6 +7,7 @@ import { Cobro } from 'src/app/modelo/cobro';
 import { DatosGraficas } from 'src/app/modelo/datos-graficas';
 import { Pago } from 'src/app/modelo/pago';
 import { Proveedor } from 'src/app/modelo/proveedor';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-home',
@@ -29,21 +30,23 @@ export class HomeComponent implements OnInit {
   private totalc2:number=0;
   private totalp1:number=0;
   private totalp2:number=0;
+ 
 
  ngOnInit(){
+  this.spinner.show();
     this.obtenerBancos()
     this.obtenerProveedores()
     this.obtenerCobros()
     this.obtenerClientes()
     this.obtenerPagos()
     
-    setTimeout(() => {
-      this.tarjetas= this.datosGraficosTarjetas();
-    }, 1000);
+    
     setTimeout(() => {
       this.tartap= this.datosGraficosTartap();
       this.tartac= this.datosGraficosTartac();
       this.barra= this.datosGraficosBarras();
+      this.tarjetas= this.datosGraficosTarjetas();
+      this.spinner.hide();
     }, 1000);
     
   }
@@ -67,7 +70,7 @@ export class HomeComponent implements OnInit {
     this.servicio.getPagos().subscribe(cli =>this.pagos = cli);
   }
   
-  constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService) {
+  constructor(private servicio:ServicioRecyclonService,private alertaService: AlertaService, private spinner: NgxSpinnerService) {
   
   }
 

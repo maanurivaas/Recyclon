@@ -5,6 +5,7 @@ import { Pago } from 'src/app/modelo/pago';
 import { Proveedor } from 'src/app/modelo/proveedor';
 import { AlertaService } from 'src/app/servicio/alerta.service';
 import { ServicioRecyclonService } from 'src/app/servicio/servicio-recyclon.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pagos',
@@ -73,6 +74,22 @@ export class PagosComponent implements OnInit {
 
   eliminarPago(id:number){
       this.servicio.borrarPago(id).subscribe(_=>this.obtenerPagos());
+  }
+
+  mostrarVentanaEliminar(c: Pago) {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: `El pago será eliminado `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Eliminar',
+    }).then((result: { isConfirmed: any; }) => {
+      if(result.isConfirmed) {
+        this.eliminarPago(c.id);
+      }
+    });
   }
 
   editarPago(id:number){
